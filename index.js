@@ -19,7 +19,7 @@ Waitlisted.prototype.create = function(email, name, cb) {
       email: email,
       name: name
     }
-  }, function(err, httpResponse, body) {
+  }, function(err, response, body) {
 
   });
 };
@@ -30,8 +30,25 @@ Waitlisted.prototype.get = function(email, cb) {
     throw new Error('Email should be specified');
   }
 
-  request('https://' + this.domain + '.app.waitlisted.co/api/v1/reservation?email=' + email, function(err, httpResponse, body) {
+  request('https://' + this.domain + '.app.waitlisted.co/api/v1/reservation?email=' + email, function(err, response, body) {
+    var parsedResponse;
+    if (err) {
+      cb(err);
+    } else {
+      try {
+        parsedResponse = JSON.parse(body);
+      } catch (error) {
+        cb(new Error('Error parsing JSON answer from Waitlisted API'));
+        return;
+      }
 
+      if (parsedResponse.error === 'Cannot find reservation') {
+        cb(null, 'Email not found');
+        return;
+      }
+
+      cb(null, parsedResponse);
+    }
   });
 };
 
