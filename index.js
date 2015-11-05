@@ -1,8 +1,29 @@
+/**
+ * Module dependencies.
+ */
+
 var request = require('request');
+
+/**
+ * Returns a Waitlisted API wrapper object.
+ * @param {String} domain
+ * @return Instance of the Waitlisted API
+ */
 
 function Waitlisted(domain) {
   this.domain = domain;
 }
+
+
+
+/**
+ * Create a Reservation
+ * @see http://waitlisted.github.io/api-docs/?shell#create-a-reservation
+ * @param {String} email  The email of the person requesting reservation
+ * @param {String} name   The name of the person requesting the reservation
+ * @param cb function for returned data or errors
+ */
+
 
 Waitlisted.prototype.create = function(email, name, cb) {
   if (!email) {
