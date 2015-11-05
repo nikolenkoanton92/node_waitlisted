@@ -30,8 +30,9 @@ Waitlisted.prototype.create = function(email, name, cb) {
     throw new Error('Email should be specified');
   }
 
-  if (!name) {
-    throw new Error('Name should be specified');
+  if (typeof name === 'function') {
+    cb = name;
+    name = '';
   }
 
   request.post({
