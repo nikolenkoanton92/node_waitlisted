@@ -46,6 +46,14 @@ Waitlisted.prototype.create = function(email, name, cb) {
 };
 
 
+
+/**
+ * Get a Specific Reservation
+ * @see http://waitlisted.github.io/api-docs/?shell#get-a-specific-reservation
+ * @param {String}  email The email of the specific reservation
+ * @param cb function for returned data or errors
+ */
+
 Waitlisted.prototype.get = function(email, cb) {
 
   if (!email) {
