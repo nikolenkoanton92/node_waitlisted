@@ -11,6 +11,10 @@ var request = require('request');
  */
 
 function Waitlisted(domain) {
+  if (!domain) {
+    throw new Error('Domain should be specified');
+  }
+
   this.domain = domain;
 }
 
@@ -27,7 +31,8 @@ function Waitlisted(domain) {
 
 Waitlisted.prototype.create = function(email, name, cb) {
   if (!email) {
-    throw new Error('Email should be specified');
+    cb('Email should be specified');
+    return;
   }
 
   if (typeof name === 'function') {
@@ -58,7 +63,8 @@ Waitlisted.prototype.create = function(email, name, cb) {
 Waitlisted.prototype.get = function(email, cb) {
 
   if (!email) {
-    throw new Error('Email should be specified');
+    cb('Email should be specified');
+    return;
   }
 
   request({
@@ -82,7 +88,7 @@ function Call(err, response, body, cb) {
     try {
       parsedResponse = JSON.parse(body);
     } catch (error) {
-      cb(new Error('Error parsing JSON answer from Waitlisted API'));
+      cb('Error parsing JSON answer from Waitlisted API');
       return;
     }
 
