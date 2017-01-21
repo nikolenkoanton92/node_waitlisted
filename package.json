@@ -1,6 +1,6 @@
 {
   "name": "waitlisted",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Node.js module that implements the offical waitlisted api",
   "main": "index.js",
   "scripts": {
