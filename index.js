@@ -29,7 +29,7 @@ function Waitlisted(domain) {
  */
 
 
-Waitlisted.prototype.create = function(email, name, cb) {
+Waitlisted.prototype.create = function(email, name, refcode, cb) {
   if (!email) {
     cb('Email should be specified');
     return;
@@ -38,14 +38,20 @@ Waitlisted.prototype.create = function(email, name, cb) {
   if (typeof name === 'function') {
     cb = name;
     name = '';
+  } else if (typeof refcode === 'function') {
+    cb = refcode;
+    refcode = '';
   }
-
+  var body = 'reservation[email]=' + email + '&reservation[name]=' + name;
+  if (refcode.length) {
+    body += '&reservation[refcode]=' + refcode;
+  }
   request.post({
     url: 'https://' + this.domain + '.app.waitlisted.co/api/v1/reservation',
-    form: {
-      email: email,
-      name: name
-    }
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: body
   }, function(err, response, body) {
     return Call(err, response, body, cb);
   });
