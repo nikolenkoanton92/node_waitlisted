@@ -21,13 +21,15 @@ var waitlisted = new Waitlisted('Your domain from Waitlisted.co')
 
 ## API
 
-#### `waitlisted.create(email,name,cb)`
+#### `waitlisted.create(email,name,refcode,cb)`
 
 Create a Reservation
 
 * `email` - The email of the person requesting reservation.
 
 * `name` - The name of the person requesting the reservation. By default - '' .
+
+* `refcode` - The referral code for the user. By default - '' .
 
 `waitlisted.create('example@example.com','Waitlisted Co', function(err,data){})`
 
@@ -38,6 +40,3 @@ Get a Specific Reservation
 * `email` - The email of the specific reservation
 
 `waitlisted.get('example@example.com', function(err,data){})`
-
-
-
